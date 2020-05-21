@@ -53,6 +53,8 @@ const cardArray=[
         img: 'images/hotdog.png'
       }
 ]
+cardArray.sort(()=>0.5 -Math.random())
+
 
 
 const grid= document.querySelector(".grid");
@@ -68,7 +70,7 @@ function CreateBoard(){
         var card=document.createElement('img');
         card.setAttribute('src','images/blank.png');
         card.setAttribute('data-id',i)
-        //card.addEventListener('click',flipcard);
+        card.addEventListener('click',flipcard);
         grid.appendChild(card);
     }
 
@@ -83,7 +85,13 @@ function checkforMatch(){
      const optionOneId=cardChoosenId[0];
      const optionTwoId=cardChoosenId[1];
 
-     if(cardChoosen[0]===cardChoosen[1]){
+     if(optionOneId == optionTwoId) {
+        cards[optionOneId].setAttribute('src', 'images/blank.png')
+        cards[optionTwoId].setAttribute('src', 'images/blank.png')
+        alert('You have clicked the same image!')
+      }
+
+     else if(cardChoosen[0]===cardChoosen[1]){
          alert('You found A Match');
          cards[optionOneId].setAttribute('src','images/white.png');
          cards[optionTwoId].setAttribute('src','images/white.png');
@@ -107,11 +115,11 @@ function checkforMatch(){
 
 // Flip the Card
 function flipcard(){
-    cardId=this.getAttribute('datat-id');
+   var cardId=this.getAttribute('data-id');
       cardChoosen.push(cardArray[cardId].name)
 
       cardChoosenId.push(cardId)
-      this.setAttribute('src',cardArray[cardId].img)
+      this.setAttribute('src', cardArray[cardId].img)
  
        if(cardChoosen.length === 2 ){
            setTimeout(checkforMatch,500);
@@ -127,3 +135,5 @@ CreateBoard();
 
 
 })
+
+
